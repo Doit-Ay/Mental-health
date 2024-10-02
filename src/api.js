@@ -1,7 +1,11 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
-const API_KEY = 'AIzaSyDNtapUaq7VjhLRTywo-ZqyjlhzWsBCqB4'; // Your API key
+const API_KEY = process.env.API_KEY; // Use the API key from environment variables
 
 // Function to get responses from the Gemini API
 export const getGeminiResponse = async (userInput) => {
@@ -21,7 +25,7 @@ export const getGeminiResponse = async (userInput) => {
         'Content-Type': 'application/json',
       },
       params: {
-        key: 'AIzaSyDNtapUaq7VjhLRTywo-ZqyjlhzWsBCqB4', // Use the API key as a query parameter
+        key: API_KEY, // Use the API key as a query parameter
       },
     });
 
