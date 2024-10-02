@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Login'; // Ensure this component exists
+import Signup from './components/Signup'; // Ensure this component exists
+import Chat from './Chat'; // Ensure this component exists
+import MoodTracker from './MoodTracker'; // New component for mood tracking
+import Journaling from './Journaling'; // New component for journaling
+import Profile from './Profile'; // New component for user profile management
+import PrivateRoute from './PrivateRoute'; // Ensure this component exists for protected routes
+import NotFound from './NotFound'; // Ensure this component exists for 404 pages
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Protected Routes */}
+        <Route
+  path="/chat"
+  element={
+    <PrivateRoute element={<Chat />} />
+  }
+/>
+
+        <Route
+          path="/mood-tracker"
+          element={
+            <PrivateRoute>
+              <MoodTracker />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/journaling"
+          element={
+            <PrivateRoute>
+              <Journaling />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+
+        {/* 404 Route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
